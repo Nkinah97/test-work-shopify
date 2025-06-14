@@ -1,0 +1,242 @@
+{% if section.blocks.size > 0 %}
+  <div class="swiper-gallery section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}">
+    <div class="swiper-gallery__container">
+      <div class="swiper-gallery__wrapper swiper" data-swiper-gallery>
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {% if block.type == 'slide' %}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  {{ block.settings.image | image_url: width: 1500 | image_tag:
+                    loading: 'lazy',
+                    class: 'swiper-gallery__image',
+                    alt: block.settings.image.alt | escape
+                  }}
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'swiper-gallery__image placeholder' }}
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {% if section.settings.show_pagination %}
+          <div class="swiper-pagination"></div>
+        {% endif %}
+
+        {% if section.settings.show_navigation %}
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const swiperGallery = new Swiper('[data-swiper-gallery]', {
+        slidesPerView: {{ section.settings.slides_per_view_desktop }},
+        spaceBetween: {{ section.settings.space_between }},
+        pagination: {% if section.settings.show_pagination %}{
+          el: '.swiper-pagination',
+          clickable: true
+        }{% else %}false{% endif %},
+        navigation: {% if section.settings.show_navigation %}{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }{% else %}false{% endif %},
+        breakpoints: {
+          320: {
+            slidesPerView: {{ section.settings.slides_per_view_mobile }},
+            spaceBetween: {{ section.settings.space_between_mobile }}
+          },
+          768: {
+            slidesPerView: {{ section.settings.slides_per_view_tablet }},
+            spaceBetween: {{ section.settings.space_between_tablet }}
+          },
+          1024: {
+            slidesPerView: {{ section.settings.slides_per_view_desktop }},
+            spaceBetween: {{ section.settings.space_between }}
+          }
+        }
+      });
+    });
+  </script>
+
+  <style>
+    .swiper-gallery {
+      padding: {{ section.settings.padding }}px 0;
+    }
+
+    .swiper-gallery__container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .swiper-gallery__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: {{ section.settings.navigation_color }};
+    }
+
+    .swiper-pagination-bullet-active {
+      background: {{ section.settings.pagination_color }};
+    }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Swiper Gallery",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "Page width"
+        },
+        {
+          "value": "full-width",
+          "label": "Full width"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Slides per view (Desktop)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Slides per view (Tablet)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Slides per view (Mobile)",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Space between slides (Desktop)",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "space_between_tablet",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "label": "Space between slides (Tablet)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "space_between_mobile",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "label": "Space between slides (Mobile)",
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "navigation_color",
+      "label": "Navigation arrows color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "pagination_color",
+      "label": "Pagination color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "label": "Section padding",
+      "default": 30
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "background-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Swiper Gallery",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

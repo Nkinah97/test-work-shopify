@@ -1,0 +1,159 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "header_section": {
+      "type": "header",
+      "blocks": {
+        "header-logo": {
+          "type": "_header-logo",
+          "static": true,
+          "settings": {
+            "hide_logo_on_home_page": true,
+            "custom_height": 48,
+            "custom_height_mobile": 12,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "header-menu": {
+          "type": "_header-menu",
+          "static": true,
+          "settings": {
+            "menu": "main-menu",
+            "menu_style": "featured_products",
+            "featured_products_aspect_ratio": "4 / 5",
+            "featured_collections_aspect_ratio": "16 / 9",
+            "image_border_radius": 0,
+            "product_title_case": "default",
+            "collection_title_case": "default",
+            "color_scheme": "",
+            "menu_font_style": "inverse",
+            "type_font_primary_link": "body",
+            "type_font_primary_size": "0.875rem",
+            "type_case_primary_link": "none",
+            "type_font_secondary_link": "body",
+            "type_case_secondary_link": "none",
+            "type_font_tertiary_link": "body",
+            "type_case_tertiary_link": "none",
+            "navigation_bar": false,
+            "color_scheme_navigation_bar": "",
+            "drawer_accordion": false,
+            "drawer_accordion_expand_first": false,
+            "drawer_dividers": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "logo_position": "center",
+        "menu_position": "left",
+        "menu_row": "top",
+        "show_search": true,
+        "search_position": "right",
+        "search_row": "top",
+        "show_country": false,
+        "country_selector_style": false,
+        "show_language": false,
+        "localization_position": "right",
+        "localization_row": "top",
+        "section_width": "page-width",
+        "section_height": "standard",
+        "enable_sticky_header": "always",
+        "divider_width": 0,
+        "divider_size": "page-width",
+        "border_width": 0,
+        "color_scheme_top": "scheme-1",
+        "color_scheme_bottom": "",
+        "color_scheme_transparent": "scheme-6",
+        "enable_transparent_header_home": true,
+        "home_color_scheme": "inverse",
+        "enable_transparent_header_product": false,
+        "product_color_scheme": "default",
+        "enable_transparent_header_collection": false,
+        "collection_color_scheme": "default"
+      }
+    },
+    "swiper_gallery_tE9HYL": {
+      "type": "swiper-gallery",
+      "blocks": {
+        "slide_fQHLGF": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/woman-wades-in-ocean-at-sunset.jpg"
+          }
+        },
+        "slide_ecfbX9": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/woman-wades-in-ocean-at-sunset.jpg"
+          }
+        },
+        "slide_KfD4Gd": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/woman-wades-in-ocean-at-sunset.jpg"
+          }
+        },
+        "slide_CM9kaD": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/woman-wades-in-ocean-at-sunset.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "slide_fQHLGF",
+        "slide_ecfbX9",
+        "slide_KfD4Gd",
+        "slide_CM9kaD"
+      ],
+      "name": "Swiper Gallery",
+      "settings": {
+        "section_width": "page-width",
+        "slides_per_view_desktop": 3,
+        "slides_per_view_tablet": 2,
+        "slides_per_view_mobile": 1,
+        "space_between": 30,
+        "space_between_tablet": 20,
+        "space_between_mobile": 10,
+        "show_pagination": true,
+        "show_navigation": true,
+        "navigation_color": "#000000",
+        "pagination_color": "#000000",
+        "padding": 30,
+        "color_scheme": ""
+      }
+    },
+    "product_color_gallery_inkTjJ": {
+      "type": "product-color-gallery",
+      "name": "Product Color Gallery",
+      "settings": {
+        "product": "red-pencil-1"
+      }
+    },
+    "dynamic_product_accordion_jEnPMG": {
+      "type": "dynamic-product-accordion",
+      "name": "Dynamic Product Accordion",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header_section",
+    "swiper_gallery_tE9HYL",
+    "product_color_gallery_inkTjJ",
+    "dynamic_product_accordion_jEnPMG"
+  ]
+}

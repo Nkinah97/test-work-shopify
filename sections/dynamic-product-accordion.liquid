@@ -1,0 +1,118 @@
+{% schema %}
+{
+  "name": "Dynamic Product Accordion",
+  "settings": [],
+  "presets": [
+    { "name": "Dynamic Product Accordion" }
+  ]
+}
+{% endschema %}
+
+{% comment %}
+  Get metafield data
+{% endcomment %}
+{% assign accordion_titles_raw = product.metafields.custom.accordion_titles.value %}
+{% assign accordion_descriptions_object = product.metafields.custom.accordion_descriptions %}
+{% assign allow_multiple = product.metafields.custom.accordion_allow_multiple.value %}
+
+{% comment %}
+  Split titles by newline.
+  We will assume accordion_descriptions is a single rich text entry.
+{% endcomment %}
+{% assign accordion_titles = accordion_titles_raw | split: '\n' | compact %}
+
+{% comment %}
+  Render accordion if there is any content
+{% endcomment %}
+{% if accordion_titles.size > 0 or accordion_descriptions_object.value != blank %}
+  <div class="dynamic-accordion" data-allow-multiple="{{ allow_multiple }}">
+    {% assign last_index = accordion_titles.size | minus: 1 %}
+    {% for i in (0..last_index) %}
+      {% assign title = accordion_titles[i] %}
+      {% assign description = accordion_descriptions_object.value %}
+      {% if title != blank or description != blank %}
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <h3>{{ title | strip }}</h3>
+          </summary>
+          <div class="accordion-content">
+            {{ description }}
+          </div>
+        </details>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const accordionContainer = document.querySelector('.dynamic-accordion');
+      if (accordionContainer) {
+        const allowMultiple = accordionContainer.dataset.allowMultiple === 'true';
+        const accordionItems = accordionContainer.querySelectorAll('.accordion-item');
+
+        accordionItems.forEach(item => {
+          item.addEventListener('toggle', () => {
+            if (!allowMultiple && item.open) {
+              accordionItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.open) {
+                  otherItem.open = false;
+                }
+              });
+            }
+          });
+        });
+      }
+    });
+  </script>
+
+  <style>
+    .dynamic-accordion {
+      margin-top: 30px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .accordion-item {
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+    .accordion-header {
+      padding: 15px 20px;
+      cursor: pointer;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .accordion-header h3 {
+      margin: 0;
+      font-size: 1.1em;
+      color: #333;
+    }
+    .accordion-header::after {
+      content: '+ ';
+      font-size: 1.5em;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+    .accordion-item[open] > .accordion-header::after {
+      content: '- ';
+      transform: rotate(0deg); /* No rotation needed for - */
+    }
+    .accordion-content {
+      padding: 15px 20px;
+      background-color: #fff;
+      border-top: 1px solid #eee;
+    }
+    /* Simple animation for content */
+    .accordion-item:not([open]) > .accordion-content {
+      height: 0;
+      overflow: hidden;
+      padding-top: 0;
+      padding-bottom: 0;
+      transition: padding 0.2s, height 0.2s;
+    }
+  </style>
+{% endif %}
